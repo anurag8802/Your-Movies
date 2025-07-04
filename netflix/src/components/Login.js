@@ -79,8 +79,8 @@ const Login = () => {
             <div className="absolute inset-0 -z-10">
                 <img
                     className="w-full h-full object-cover"
-                    src="https://assets.nflxext.com/ffe/siteui/vlv3/6b6e7e7e-2e2e-4e4e-8e8e-8e8e8e8e8e8e/6b6e7e7e-2e2e-4e4e-8e8e-8e8e8e8e8e8e/IN-en-20240610-popsignuptwoweeks-perspective_alpha_website_large.jpg"
-                    alt="netflix-background"
+                    src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80"
+                    alt="background"
                 />
                 <div className="absolute inset-0 bg-black opacity-60"></div>
             </div>
