@@ -9,11 +9,13 @@ import usePopularMovies from '../hooks/usePopularMovies';
 import useTopRatedMovies from '../hooks/useTopRatedMovies';
 import useUpcomingMovies from '../hooks/useUpcomingMovies';
 import SearchMovie from './SearchMovie';
+import MovieDialog from './MovieDialog';
+import Footer from './Footer';
 
 const Browse = () => {
     //useSelector is a hook provided by React-Redux that allows you to extract data (or a piece of the state) from the Redux store in a React component.
-    //From store.app, it selects the user property (store.app.user), which represents the current user information in the state.
-    const user = useSelector(store => store.app.user);
+    //From store.user, it selects the user property (store.user.user), which represents the current user information in the state.
+    const user = useSelector(store => store.user.user);
     //This toggle value might be used to switch between different views on the page (e.g., between the search results and movie lists).
     const toggle = useSelector(store => store.movie.toggle);
     const navigate = useNavigate();
@@ -27,24 +29,21 @@ const Browse = () => {
         if (!user) {
             navigate("/"); //If there is no user, it redirects the user to the login page.
         }
-    }, []); //The empty dependency array ([]) means this effect runs only once when the component mounts.
+    }, [navigate, user]); // Add dependencies
     return (
-        <div >
+        <div className="min-h-screen flex flex-col bg-gradient-to-b from-black via-neutral-900 to-black w-full">
             <Header />
-            <div>
-                {
-                    toggle ? <SearchMovie /> : (
- // The use of <>...</> (React Fragment) around <MainContainer /> and <MovieContainer /> 
-//  allows these elements to be grouped together without adding an extra node to the DOM.
-                        <>
-                            <MainContainer />
-                            <MovieContainer />
-                        </>
-
-                    )
-                }
-
+            <div className="flex-1 pt-20 pb-10 px-0 md:px-8">
+                {toggle ? <SearchMovie /> : (
+                    <div className="w-full">
+                        <MainContainer />
+                        <MovieContainer />
+                    </div>
+                )}
             </div>
+            <Footer />
+            {/* Movie Dialog for pop-up trailers */}
+            <MovieDialog />
         </div>
     )
 }
