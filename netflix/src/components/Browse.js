@@ -31,8 +31,9 @@ const Browse = () => {
         }
     }, [navigate, user]); // Add dependencies
     return (
-        <div className="min-h-screen flex flex-col bg-gradient-to-b from-black via-neutral-900 to-black w-full">
+        <div>
             <Header />
+        <div className="min-h-screen flex flex-col bg-gradient-to-b from-black via-neutral-900 to-black w-full">
             <div className="flex-1 pt-20 pb-10 px-0 md:px-8">
                 {toggle ? <SearchMovie /> : (
                     <div className="w-full">
@@ -44,6 +45,7 @@ const Browse = () => {
             <Footer />
             {/* Movie Dialog for pop-up trailers */}
             <MovieDialog />
+        </div>
         </div>
     )
 }

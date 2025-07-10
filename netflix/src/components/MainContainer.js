@@ -25,7 +25,6 @@ const MainContainer = () => {
   
   return (
     <>
-      <ContinueWatching />
       <div className="relative h-[70vh] flex items-end justify-start bg-gradient-to-b from-black/80 to-transparent pt-32 pb-32 overflow-hidden">
         {/* Video background absolutely fills the parent */}
         <div className="absolute inset-0 w-full h-full z-0">

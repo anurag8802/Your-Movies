@@ -3,6 +3,7 @@ import userReducer from './userSlice';
 import searchReducer from './searchSlice';
 import movieReducer from './movieSlice';
 import continueWatchingReducer from './continueWatchingSlice';
+import favouriteReducer from './favouriteSlice';
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     search: searchReducer,
     movie: movieReducer,
     continueWatching: continueWatchingReducer,
+    favourite: favouriteReducer,
   },
 });
 

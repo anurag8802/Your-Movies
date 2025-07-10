@@ -56,15 +56,17 @@ const SearchResults = () => {
       {/* Header with search bar */}
       <div>
         <div className="sticky top-0 z-20 bg-black bg-opacity-90 flex items-center px-8 py-4 border-b border-neutral-800">
-          <h1 className="text-3xl font-extrabold text-red-600 mr-8 select-none cursor-pointer" onClick={() => navigate('/browse')}>YOURMOVIES</h1>
-          <input
-            type="text"
-            className="flex-1 bg-neutral-800 text-white rounded px-4 py-2 text-lg focus:outline-none focus:ring-2 focus:ring-red-600"
-            placeholder="Search for a movie..."
-            value={searchTerm}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
-          />
+          <h1 className="text-xl font-extrabold bg-gradient-to-r from-red-600 via-yellow-400 to-red-600 bg-clip-text text-transparent font-sans tracking-wide drop-shadow-lg select-none animate-pulse transition-transform duration-200 hover:scale-110 hover:drop-shadow-2xl cursor-pointer" onClick={() => navigate('/browse')}>YOURMOVIES</h1>
+          <div className="flex-1 flex justify-center">
+            <input
+              type="text"
+              className="w-[680px] bg-neutral-800 text-white rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-600 cursor-pointer"
+              placeholder="Search for a movie..."
+              value={searchTerm}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+            />
+          </div>
         </div>
 
         {/* Related keywords */}

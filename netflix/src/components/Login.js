@@ -14,6 +14,10 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showAuthModal, setShowAuthModal] = useState(false);
+    const [showForgotModal, setShowForgotModal] = useState(false);
+    const [forgotEmail, setForgotEmail] = useState("");
+    const [forgotNewPassword, setForgotNewPassword] = useState("");
+    const [forgotConfirmPassword, setForgotConfirmPassword] = useState("");
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const isLoading = useSelector(store => store.user.isLoading);
@@ -37,13 +41,14 @@ const Login = () => {
                 });
                 if (res.data.success) {
                     toast.success(res.data.message);
+                    dispatch(setUser(res.data.user));
+                    // Optionally, fetch profile for freshest data
+                    // const profileRes = await axios.get(`${API_END_POINT}/profile`, { withCredentials: true });
+                    // dispatch(setUser(profileRes.data.user));
+                    navigate("/browse");
                 }
-                dispatch(setUser(res.data.user));
-                // Persist user in localStorage
-                localStorage.setItem('user', JSON.stringify(res.data.user));
-                navigate("/browse");
             } catch (error) {
-                toast.error(error.response.data.message);
+                toast.error(error?.response?.data?.message || 'Login failed');
             } finally {
                 dispatch(setLoading(false));
             }
@@ -60,11 +65,10 @@ const Login = () => {
                 });
                 if (res.data.success) {
                     toast.success(res.data.message);
+                    setIsLogin(true);
                 }
-                setIsLogin(true);
             } catch (error) {
-                toast.error(error.response.data.message);
-                console.log(error);
+                toast.error(error?.response?.data?.message || 'Registration failed');
             } finally {
                 dispatch(setLoading(false));
             }
@@ -72,6 +76,41 @@ const Login = () => {
         setFullName("");
         setEmail("");
         setPassword("");
+    };
+
+    // Handler for forgot password
+    const handleForgotPassword = async (e) => {
+        e.preventDefault();
+        if (!forgotEmail || !forgotNewPassword || !forgotConfirmPassword) {
+            toast.error("All fields are required");
+            return;
+        }
+        if (forgotNewPassword !== forgotConfirmPassword) {
+            toast.error("Passwords do not match");
+            return;
+        }
+        if (forgotNewPassword.length < 6) {
+            toast.error("Password must be at least 6 characters");
+            return;
+        }
+        dispatch(setLoading(true));
+        try {
+            const res = await axios.post(`${API_END_POINT}/forgot-password`, {
+                email: forgotEmail,
+                newPassword: forgotNewPassword
+            }, { withCredentials: true });
+            if (res.data.success) {
+                toast.success(res.data.message);
+                setShowForgotModal(false);
+                setForgotEmail("");
+                setForgotNewPassword("");
+                setForgotConfirmPassword("");
+            }
+        } catch (error) {
+            toast.error(error?.response?.data?.message || 'Failed to change password');
+        } finally {
+            dispatch(setLoading(false));
+        }
     };
 
     return (
@@ -84,7 +123,7 @@ const Login = () => {
                 />
                 <div className="absolute inset-0 bg-black opacity-60"></div>
             </div>
-            <Header />
+           
             <div className="flex flex-col items-center justify-center w-full h-full mt-32 z-10">
                 <h1 className="text-5xl md:text-6xl font-extrabold text-white text-center mb-6 drop-shadow-lg leading-tight">
                     Unlimited movies, TV<br className="hidden md:block" /> shows and more
@@ -145,6 +184,16 @@ const Login = () => {
                                 className="outline-none p-3 rounded bg-gray-800 text-white placeholder-gray-400 focus:ring-2 focus:ring-red-600"
                                 required
                             />
+                            {isLogin && (
+                                <div className="text-right">
+                                    <span
+                                        className="text-sm text-blue-400 cursor-pointer hover:underline"
+                                        onClick={() => { setShowAuthModal(false); setShowForgotModal(true); }}
+                                    >
+                                        Forgot Password?
+                                    </span>
+                                </div>
+                            )}
                             <button
                                 type="submit"
                                 className="bg-red-600 hover:bg-red-700 p-3 text-white rounded font-semibold text-lg transition-colors duration-200"
@@ -160,6 +209,48 @@ const Login = () => {
                                     {isLogin ? "Sign Up" : "Sign In"}
                                 </span>
                             </p>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Forgot Password Modal */}
+            {showForgotModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
+                    <div className="bg-zinc-900 rounded-lg shadow-2xl p-8 w-full max-w-md relative">
+                        <button onClick={() => setShowForgotModal(false)} className="absolute top-3 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
+                        <h2 className="text-3xl font-bold text-blue-500 mb-6 text-center">Reset Password</h2>
+                        <form onSubmit={handleForgotPassword} className="flex flex-col gap-4">
+                            <input
+                                value={forgotEmail}
+                                onChange={(e) => setForgotEmail(e.target.value)}
+                                type="email"
+                                placeholder="Email address"
+                                className="outline-none p-3 rounded bg-gray-800 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-600"
+                                required
+                            />
+                            <input
+                                value={forgotNewPassword}
+                                onChange={(e) => setForgotNewPassword(e.target.value)}
+                                type="password"
+                                placeholder="New Password"
+                                className="outline-none p-3 rounded bg-gray-800 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-600"
+                                required
+                            />
+                            <input
+                                value={forgotConfirmPassword}
+                                onChange={(e) => setForgotConfirmPassword(e.target.value)}
+                                type="password"
+                                placeholder="Confirm New Password"
+                                className="outline-none p-3 rounded bg-gray-800 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-600"
+                                required
+                            />
+                            <button
+                                type="submit"
+                                className="bg-blue-600 hover:bg-blue-700 p-3 text-white rounded font-semibold text-lg transition-colors duration-200"
+                            >
+                                {isLoading ? "Processing..." : "Change Password"}
+                            </button>
                         </form>
                     </div>
                 </div>
