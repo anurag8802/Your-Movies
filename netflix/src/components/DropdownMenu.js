@@ -24,22 +24,22 @@ const collections = [
 ];
 
 const DropdownMenu = ({ onClose }) => (
-  <div className="absolute right-0 mt-2 w-[500px] bg-zinc-900 rounded-lg shadow-lg z-50 p-6 flex" onClick={e => e.stopPropagation()}>
-    <div className="flex-1 pr-6">
-      <div className="text-gray-400 mb-2">GENRES</div>
+  <div className="absolute right-0 mt-2 w-full max-w-xs sm:max-w-md md:w-[500px] bg-zinc-900 rounded-lg shadow-lg z-50 p-4 sm:p-6 flex flex-col sm:flex-row" onClick={e => e.stopPropagation()}>
+    <div className="flex-1 sm:pr-6 mb-4 sm:mb-0">
+      <div className="text-gray-400 mb-2 text-xs sm:text-base">GENRES</div>
       {genres.map(g => (
         <Link
           key={g.path}
           to={`/genre/${g.path}`}
-          className="block text-white font-semibold py-1 hover:underline"
+          className="block text-white font-semibold py-1 text-sm sm:text-base hover:underline"
           onClick={onClose}
         >
           {g.name}
         </Link>
       ))}
     </div>
-    <div className="flex-1 border-l border-gray-700 pl-6">
-      <div className="text-gray-400 mb-2">FEATURED COLLECTIONS</div>
+    <div className="flex-1 border-t sm:border-t-0 sm:border-l border-gray-700 pt-4 sm:pt-0 sm:pl-6">
+      <div className="text-gray-400 mb-2 text-xs sm:text-base">FEATURED COLLECTIONS</div>
       {collections.map(c => (
         c.external ? (
           <a
@@ -47,7 +47,7 @@ const DropdownMenu = ({ onClose }) => (
             href={c.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="block text-white font-semibold py-1 hover:underline"
+            className="block text-white font-semibold py-1 text-sm sm:text-base hover:underline"
             onClick={onClose}
           >
             {c.name}
@@ -56,7 +56,7 @@ const DropdownMenu = ({ onClose }) => (
           <Link
             key={c.path}
             to={`/collection/${c.path}`}
-            className="block text-white font-semibold py-1 hover:underline"
+            className="block text-white font-semibold py-1 text-sm sm:text-base hover:underline"
             onClick={onClose}
           >
             {c.name}

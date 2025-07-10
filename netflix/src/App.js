@@ -19,6 +19,8 @@ import SubscriptionSuccess from './components/SubscriptionSuccess';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setSubscriptionStatus } from './redux/userSlice';
+import Movies from './components/Movies';
+import CategoryPage from './components/CategoryPage';
 
 // Map collection names to TMDB endpoints
 const COLLECTION_ENDPOINTS = {
@@ -103,8 +105,10 @@ function App() {
         <Route path="/search" element={<SearchResults />} />
         <Route path="/genre/:genreName" element={<GenrePage />} />
         <Route path="/collection/:collectionName" element={<CollectionPage />} />
+        <Route path="/category/:categoryName" element={<CategoryPage />} />
         <Route path="/subscription" element={<SubscriptionSuccess />} />
         <Route path="/subscription/success" element={<SubscriptionSuccess success={true} />} />
+        <Route path="/movies" element={<Movies />} />
         {/* Add other routes as needed */}
       </Routes>
       <Toaster/>  
