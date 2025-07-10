@@ -55,8 +55,6 @@ const CollectionPage = () => {
   }, [endpoint, collectionName]);
 
   return (
-    <div>
-      <Header />
       <div className="min-h-screen flex flex-col bg-gradient-to-b from-black via-neutral-900 to-black w-full">
         <div className="flex-1 pt-20 pb-10 px-0 md:px-8">
           <h1 className="text-4xl font-bold text-white mb-8 capitalize">{collectionName?.replace(/-/g, ' ')}</h1>
@@ -78,14 +76,12 @@ const CollectionPage = () => {
         </div>
         <Footer />
       </div>
-    </div>
   );
 };
 
 function App() {
   return (
     <>
-      <Header />
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/browse" element={<Browse />} />

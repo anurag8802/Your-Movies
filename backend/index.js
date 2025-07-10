@@ -9,6 +9,7 @@ import compression from "compression";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { generalLimiter } from "./middleware/rateLimiter.js";
 import logger from "./middleware/errorHandler.js";
+import paymentRoute from "./routes/paymentRoute.js";
 
 // Load environment variables
 dotenv.config({ path: ".env" });
@@ -74,6 +75,7 @@ app.get('/health', (req, res) => {
 
 // API routes
 app.use("/api/v1/user", userRoute);
+app.use("/api/v1/payment", paymentRoute);
 
 // 404 handler
 app.use('*', (req, res) => {
