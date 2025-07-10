@@ -1,5 +1,5 @@
-const express = require('express');
-const Razorpay = require('razorpay');
+import express from "express";
+import Razorpay from "razorpay";
 const router = express.Router();
 
 const razorpay = new Razorpay({
