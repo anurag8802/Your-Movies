@@ -4,7 +4,8 @@ const userSlice = createSlice({
     name:"user",
     initialState:{
         user:null,
-        isLoading:false
+        isLoading:false,
+        subscriptionStatus: false // false = not subscribed, true = subscribed
     },
     reducers:{
         // actions
@@ -13,8 +14,11 @@ const userSlice = createSlice({
         },
         setLoading:(state,action)=>{
             state.isLoading = action.payload;
+        },
+        setSubscriptionStatus: (state, action) => {
+            state.subscriptionStatus = action.payload;
         }
     }
 });
-export const {setUser,setLoading} = userSlice.actions;
+export const {setUser,setLoading,setSubscriptionStatus} = userSlice.actions;
 export default userSlice.reducer;

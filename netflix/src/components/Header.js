@@ -4,7 +4,7 @@ import { FaSearch, FaTh } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { API_END_POINT } from '../utils/constant';
 import axios from "axios";
-import { setUser } from '../redux/userSlice';
+import { setUser, setSubscriptionStatus } from '../redux/userSlice';
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { setToggle } from '../redux/movieSlice';
@@ -17,6 +17,7 @@ import DropdownMenu from './DropdownMenu';
 
 const Header = ({ onSignInClick }) => {
     const user = useSelector((store) => store.user.user);
+    const subscriptionStatus = useSelector((store) => store.user.subscriptionStatus);
     const [searchMovie, setSearchMovie] = useState("");
     const isLoading = useSelector(store => store.user.isLoading);
     const dispatch = useDispatch();
@@ -33,6 +34,8 @@ const Header = ({ onSignInClick }) => {
                 toast.success(res.data.message);
             }
             dispatch(setUser(null));
+            localStorage.removeItem('subscriptionStatus');
+            dispatch(setSubscriptionStatus(false));
             navigate("/");
         } catch (error) {
             toast.error('Logout failed');
@@ -72,7 +75,13 @@ const Header = ({ onSignInClick }) => {
                     <Link to="/browse/history" className="text-white hover:text-red-500 transition-colors px-4 py-2 ">History</Link>
                     <Link to="/browse/favourite" className="text-white hover:text-red-500 transition-colors px-4 py-2">Favourites</Link>
                     <span className="mx-2 text-gray-500">|</span>
-                    <button className="flex items-center gap-1 text-white font-bold px-2 py-1" onClick={() => navigate('/browse/subscription')}>
+                    <button className={`flex items-center gap-1 font-bold px-2 py-1 ${subscriptionStatus ? 'text-blue-500' : 'text-white'} `} onClick={() => {
+                        if (subscriptionStatus) {
+                            navigate('/subscription/success');
+                        } else {
+                            navigate('/browse/subscription');
+                        }
+                    }}>
                         <span className="text-lg">+</span> Subscriptions
                     </button>
                 </nav>

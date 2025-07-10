@@ -15,6 +15,10 @@ import GenrePage from './components/GenrePage';
 import Footer from './components/Footer';
 import axios from 'axios';
 import { options, TMDB_IMG_URL, Now_Playing_Movie, Popular_Movie, Top_Rated_Movie, Upcoming_Movie } from './utils/constant';
+import SubscriptionSuccess from './components/SubscriptionSuccess';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setSubscriptionStatus } from './redux/userSlice';
 
 // Map collection names to TMDB endpoints
 const COLLECTION_ENDPOINTS = {
@@ -80,6 +84,13 @@ const CollectionPage = () => {
 };
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const status = localStorage.getItem('subscriptionStatus');
+    if (status === 'true') {
+      dispatch(setSubscriptionStatus(true));
+    }
+  }, [dispatch]);
   return (
     <>
       <Routes>
@@ -92,6 +103,8 @@ function App() {
         <Route path="/search" element={<SearchResults />} />
         <Route path="/genre/:genreName" element={<GenrePage />} />
         <Route path="/collection/:collectionName" element={<CollectionPage />} />
+        <Route path="/subscription" element={<SubscriptionSuccess />} />
+        <Route path="/subscription/success" element={<SubscriptionSuccess success={true} />} />
         {/* Add other routes as needed */}
       </Routes>
       <Toaster/>  

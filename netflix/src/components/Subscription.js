@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { FaCheckCircle, FaTimesCircle, FaFire, FaRegSquare, FaTv, FaMobileAlt, FaUsers, FaStar } from 'react-icons/fa';
 import Header from './Header';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSubscriptionStatus } from '../redux/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 const plans = [
   {
@@ -37,6 +40,9 @@ const RAZORPAY_KEY_ID = 'rzp_test_xLZSpbpPmYuh0a'; // TODO: Replace with your Ra
 const Subscription = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const subscriptionStatus = useSelector(store => store.user.subscriptionStatus);
 
   const handleChoosePlan = (plan) => {
     setSelectedPlan(plan);
@@ -72,7 +78,10 @@ const Subscription = () => {
         handler: function (response) {
           // TODO: Optionally verify payment on backend
           alert('Payment successful! Payment ID: ' + response.razorpay_payment_id);
+          dispatch(setSubscriptionStatus(true));
+          localStorage.setItem('subscriptionStatus', 'true');
           closeModal();
+          navigate('/subscription/success');
         },
         prefill: {
           name: '',

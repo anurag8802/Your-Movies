@@ -20,7 +20,7 @@ router.post("/login", authLimiter, loginValidation, Login);
 router.post("/forgot-password", authLimiter, ForgotPassword);
 
 // Protected routes
-router.get("/logout", protect, Logout);
+router.get("/logout", Logout);
 router.get("/profile", protect, GetProfile);
 router.put("/profile", protect, generalLimiter, UpdateProfile);
 router.put("/change-password", protect, authLimiter, ChangePassword);
