@@ -31,6 +31,7 @@ const featureList = [
   { label: 'Screens you can watch on at the same time', highlight: false, icon: <FaUsers className="inline text-xl mr-2" /> },
 ];
 
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
 const RAZORPAY_KEY_ID = 'YOUR_KEY_ID'; // TODO: Replace with your Razorpay key_id
 
 const Subscription = () => {
@@ -52,7 +53,7 @@ const Subscription = () => {
     if (!selectedPlan) return;
     try {
       // 1. Create order on backend
-      const res = await fetch('/api/v1/payment/create-order', {
+      const res = await fetch(`${BACKEND_URL}/api/v1/payment/create-order`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ amount: Number(selectedPlan.price.replace('₹', '')) }),
