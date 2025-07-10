@@ -45,7 +45,7 @@ app.use(cookieParser());
 const corsOptions = {
     origin: [
         'http://localhost:3000',
-        'https://extraordinary-ganache-3c2e16.netlify.app/'
+        'https://extraordinary-ganache-3c2e16.netlify.app'
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
