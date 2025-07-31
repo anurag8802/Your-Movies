@@ -3,9 +3,10 @@ import Header from './Header';
 import Footer from './Footer';
 import { TMDB_IMG_URL, options } from '../utils/constant';
 import axios from 'axios';
-import { FaPlay, FaHeart } from 'react-icons/fa';
+import { FaHeart } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleFavourite } from '../redux/favouriteSlice';
+import { addToContinueWatching } from '../redux/continueWatchingSlice';
 import MovieDialog from './MovieDialog';
 
 const TOTAL_PAGES = 500; // TMDB max for discover/movie
@@ -51,15 +52,17 @@ const Movies = () => {
       },
       { threshold: 1 }
     );
-    if (loader.current) observer.observe(loader.current);
+    const currentLoader = loader.current;
+    if (currentLoader) observer.observe(currentLoader);
     return () => {
-      if (loader.current) observer.unobserve(loader.current);
+      if (currentLoader) observer.unobserve(currentLoader);
     };
   }, [loading]);
 
   const handlePlay = (movie) => {
     setSelectedMovie(movie);
     setShowDialog(true);
+    dispatch(addToContinueWatching(movie));
   };
 
   const handleFavourite = (movie) => {

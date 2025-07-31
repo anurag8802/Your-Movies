@@ -2115,3 +2115,10 @@
 {"level":"info","message":"🚀 Server running on port 8080","timestamp":"2025-07-10T13:00:38.362Z"}
 {"level":"info","message":"📊 Environment: development","timestamp":"2025-07-10T13:00:38.368Z"}
 {"level":"info","message":"🔗 Health check: http://localhost:8080/health","timestamp":"2025-07-10T13:00:38.369Z"}
+{"level":"info","message":"🚀 Server running on port 8080","timestamp":"2025-07-31T09:31:41.058Z"}
+{"level":"info","message":"📊 Environment: development","timestamp":"2025-07-31T09:31:41.064Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:8080/health","timestamp":"2025-07-31T09:31:41.065Z"}
+{"level":"info","message":"SIGINT received. Shutting down gracefully...","timestamp":"2025-07-31T12:05:29.278Z"}
+{"level":"info","message":"🚀 Server running on port 8080","timestamp":"2025-07-31T12:08:02.286Z"}
+{"level":"info","message":"📊 Environment: development","timestamp":"2025-07-31T12:08:02.295Z"}
+{"level":"info","message":"🔗 Health check: http://localhost:8080/health","timestamp":"2025-07-31T12:08:02.295Z"}

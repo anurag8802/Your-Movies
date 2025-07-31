@@ -24,9 +24,9 @@ const collections = [
 ];
 
 const DropdownMenu = ({ onClose }) => (
-  <div className="absolute right-0 mt-2 w-full max-w-xs sm:max-w-md md:w-[500px] bg-zinc-900 rounded-lg shadow-lg z-50 p-4 sm:p-6 flex flex-col sm:flex-row" onClick={e => e.stopPropagation()}>
+  <div className="absolute right-0 mt-2 w-full max-w-xs sm:max-w-md md:w-[500px] bg-zinc-900 rounded-lg shadow-lg z-50 p-4 sm:p-6 flex flex-col sm:flex-row " onClick={e => e.stopPropagation()}>
     <div className="flex-1 sm:pr-6 mb-4 sm:mb-0">
-      <div className="text-gray-400 mb-2 text-xs sm:text-base">GENRES</div>
+      <div className="text-red-900 mb-2 text-xs sm:text-base">GENRES</div>
       {genres.map(g => (
         <Link
           key={g.path}
@@ -39,7 +39,7 @@ const DropdownMenu = ({ onClose }) => (
       ))}
     </div>
     <div className="flex-1 border-t sm:border-t-0 sm:border-l border-gray-700 pt-4 sm:pt-0 sm:pl-6">
-      <div className="text-gray-400 mb-2 text-xs sm:text-base">FEATURED COLLECTIONS</div>
+      <div className="text-red-900 mb-2 text-xs sm:text-base">FEATURED COLLECTIONS</div>
       {collections.map(c => (
         c.external ? (
           <a

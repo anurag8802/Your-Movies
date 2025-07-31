@@ -145,7 +145,7 @@ const Login = () => {
                     />
                     <button
                         type="submit"
-                        className="bg-red-600 hover:bg-red-700 px-8 py-4 text-white rounded font-bold text-xl transition-colors duration-200 shadow-lg"
+                        className="bg-red-800 hover:bg-red-800 px-8 py-4 text-white rounded font-bold text-xl transition-colors duration-200 shadow-lg"
                     >
                         Get Started <span className="ml-2">&rarr;</span>
                     </button>
@@ -156,7 +156,7 @@ const Login = () => {
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
                     <div className="bg-zinc-900 rounded-lg shadow-2xl p-8 w-full max-w-md relative">
                         <button onClick={closeAuthModal} className="absolute top-3 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
-                        <h2 className="text-3xl font-bold text-red-600 mb-6 text-center">{isLogin ? "Sign In" : "Sign Up"}</h2>
+                        <h2 className="text-3xl font-bold text-red-800 mb-6 text-center">{isLogin ? "Sign In" : "Sign Up"}</h2>
                         <form onSubmit={getInputData} className="flex flex-col gap-4">
                             {!isLogin && (
                                 <input
@@ -164,7 +164,7 @@ const Login = () => {
                                     onChange={(e) => setFullName(e.target.value)}
                                     type="text"
                                     placeholder="Full Name"
-                                    className="outline-none p-3 rounded bg-gray-800 text-white placeholder-gray-400 focus:ring-2 focus:ring-red-600"
+                                    className="outline-none p-3 rounded bg-gray-800 text-white placeholder-gray-400 focus:ring-2 focus:ring-red-800"
                                     required
                                 />
                             )}
@@ -173,7 +173,7 @@ const Login = () => {
                                 onChange={(e) => setEmail(e.target.value)}
                                 type="email"
                                 placeholder="Email address"
-                                className="outline-none p-3 rounded bg-gray-800 text-white placeholder-gray-400 focus:ring-2 focus:ring-red-600"
+                                className="outline-none p-3 rounded bg-gray-800 text-white placeholder-gray-400 focus:ring-2 focus:ring-red-800"
                                 required
                             />
                             <input
@@ -181,7 +181,7 @@ const Login = () => {
                                 onChange={(e) => setPassword(e.target.value)}
                                 type="password"
                                 placeholder="Password"
-                                className="outline-none p-3 rounded bg-gray-800 text-white placeholder-gray-400 focus:ring-2 focus:ring-red-600"
+                                className="outline-none p-3 rounded bg-gray-800 text-white placeholder-gray-400 focus:ring-2 focus:ring-red-800"
                                 required
                             />
                             {isLogin && (
@@ -196,7 +196,7 @@ const Login = () => {
                             )}
                             <button
                                 type="submit"
-                                className="bg-red-600 hover:bg-red-700 p-3 text-white rounded font-semibold text-lg transition-colors duration-200"
+                                className="bg-red-800 hover:bg-red-900 p-3 text-white rounded font-semibold text-lg transition-colors duration-200"
                             >
                                 {isLoading ? "Loading..." : isLogin ? "Sign In" : "Sign Up"}
                             </button>
@@ -204,7 +204,7 @@ const Login = () => {
                                 {isLogin ? "New to Yourmovies?" : "Already have an account?"}
                                 <span
                                     onClick={loginHandler}
-                                    className="ml-1 text-red-400 font-bold cursor-pointer hover:underline"
+                                    className="ml-1 text-red-800 font-bold cursor-pointer hover:underline"
                                 >
                                     {isLogin ? "Sign Up" : "Sign In"}
                                 </span>

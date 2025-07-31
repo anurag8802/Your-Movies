@@ -4,7 +4,10 @@ import axios from 'axios';
 import Header from './Header';
 import Footer from './Footer';
 import { options, TMDB_IMG_URL } from '../utils/constant';
-import { FaFilm, FaChevronDown, FaPlay, FaExclamationCircle } from 'react-icons/fa';
+import MovieDialog from './MovieDialog';
+import { FaFilm, FaChevronDown, FaExclamationCircle } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import { addToContinueWatching } from '../redux/continueWatchingSlice';
 
 // Map genre names (from URL) to TMDB genre IDs
 const GENRE_ID_MAP = {
@@ -31,9 +34,12 @@ const GENRE_ID_MAP = {
 const GenrePage = () => {
   const { genreName } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [showDialog, setShowDialog] = useState(false);
 
   // Get the genre ID from the map
   const genreId = GENRE_ID_MAP[genreName?.toLowerCase()];
@@ -49,6 +55,12 @@ const GenrePage = () => {
 
   const handleGenreChange = (e) => {
     navigate(`/genre/${e.target.value}`);
+  };
+
+  const handlePlay = (movie) => {
+    setSelectedMovie(movie);
+    setShowDialog(true);
+    dispatch(addToContinueWatching(movie));
   };
 
   useEffect(() => {
@@ -89,7 +101,7 @@ const GenrePage = () => {
             </h1>
           </div>
           {/* Genre Dropdown */}
-          <div className="relative w-full max-w-xs md:max-w-xs md:w-48">
+          <div className="relative w-full max-w-xs md:max-w-xs md:w-48 scrolbar-hide">
             <select
               className="block w-full appearance-none bg-zinc-800 border border-zinc-700 text-white py-2 sm:py-3 px-3 sm:px-4 pr-8 sm:pr-10 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition duration-200 hover:border-yellow-400 hover:ring-yellow-400 cursor-pointer text-base sm:text-lg"
               value={genreName}
@@ -126,14 +138,11 @@ const GenrePage = () => {
           {/* Movie Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-6">
             {movies.map(movie => (
-              <div key={movie.id} className="bg-zinc-900 rounded-xl sm:rounded-2xl overflow-hidden shadow-xl flex flex-col transform transition-transform duration-200 hover:scale-105 hover:shadow-2xl group relative">
+              <div key={movie.id} className="bg-zinc-900 rounded-xl sm:rounded-2xl overflow-hidden shadow-xl flex flex-col transform transition-transform duration-200 hover:scale-105 hover:shadow-2xl group relative cursor-pointer" onClick={() => handlePlay(movie)}>
                 <img src={movie.poster_path ? TMDB_IMG_URL + movie.poster_path : ''} alt={movie.title} className="w-full h-40 sm:h-60 object-cover group-hover:opacity-80 transition duration-200" />
-                {/* Overlay on hover */}
-                <div className="absolute inset-0 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 bg-black/60 transition-opacity duration-200">
-                  <button className="bg-red-600 hover:bg-yellow-400 text-white rounded-full p-2 sm:p-3 shadow-lg flex items-center gap-2 text-base sm:text-lg font-bold">
-                    <FaPlay className="mr-1" /> Play
-                  </button>
-                  <span className="mt-2 text-white text-center text-xs sm:text-base font-semibold px-2 drop-shadow-lg">{movie.title}</span>
+                {/* Title overlay on hover */}
+                <div className="absolute inset-0 flex flex-col justify-end items-start opacity-0 group-hover:opacity-100 bg-gradient-to-t from-black/80 to-transparent transition-opacity duration-200 p-3">
+                  <span className="text-white text-center text-xs sm:text-base font-semibold drop-shadow-lg">{movie.title}</span>
                 </div>
               </div>
             ))}
@@ -151,6 +160,9 @@ const GenrePage = () => {
           )}
         </div>
         <Footer />
+        {showDialog && selectedMovie && (
+          <MovieDialog movie={selectedMovie} onClose={() => setShowDialog(false)} />
+        )}
       </div>
     </div>
   );

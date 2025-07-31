@@ -3,6 +3,7 @@ import { CiPlay1 } from "react-icons/ci";
 import { CiCircleInfo } from "react-icons/ci";
 import { useDispatch } from 'react-redux';
 import { setSelectedMovie, getId, setOpen } from '../redux/movieSlice';
+import { addToContinueWatching } from '../redux/continueWatchingSlice';
 
 const VideoTitle = ({title, overview, movie}) => {
     const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const VideoTitle = ({title, overview, movie}) => {
             dispatch(setSelectedMovie(movie));
             dispatch(getId(movie.id));
             dispatch(setOpen(true));
+            dispatch(addToContinueWatching(movie));
         }
     };
 

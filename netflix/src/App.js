@@ -13,6 +13,7 @@ import Favourite from './components/Favourite';
 import SearchResults from './components/SearchResults';
 import GenrePage from './components/GenrePage';
 import Footer from './components/Footer';
+import HelpCenter from './components/HelpCenter';
 import axios from 'axios';
 import { options, TMDB_IMG_URL, Now_Playing_Movie, Popular_Movie, Top_Rated_Movie, Upcoming_Movie } from './utils/constant';
 import SubscriptionSuccess from './components/SubscriptionSuccess';
@@ -109,6 +110,7 @@ function App() {
         <Route path="/subscription" element={<SubscriptionSuccess />} />
         <Route path="/subscription/success" element={<SubscriptionSuccess success={true} />} />
         <Route path="/movies" element={<Movies />} />
+        <Route path="/help-center" element={<HelpCenter />} />
         {/* Add other routes as needed */}
       </Routes>
       <Toaster/>  

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import Header from './Header';
-import { useSelector} from "react-redux";
+import { useSelector, useDispatch} from "react-redux";
 import { useNavigate } from "react-router-dom";
 import MainContainer from './MainContainer';
 import MovieContainer from './MovieContainer';
@@ -11,13 +11,15 @@ import useUpcomingMovies from '../hooks/useUpcomingMovies';
 import SearchMovie from './SearchMovie';
 import MovieDialog from './MovieDialog';
 import Footer from './Footer';
+import { setOpen } from '../redux/movieSlice';
 
 const Browse = () => {
-    //useSelector is a hook provided by React-Redux that allows you to extract data (or a piece of the state) from the Redux store in a React component.
-    //From store.user, it selects the user property (store.user.user), which represents the current user information in the state.
     const user = useSelector(store => store.user.user);
     //This toggle value might be used to switch between different views on the page (e.g., between the search results and movie lists).
     const toggle = useSelector(store => store.movie.toggle);
+    const selectedMovie = useSelector(store => store.movie.selectedMovie);
+    const isDialogOpen = useSelector(store => store.movie.open);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     //custom hooks
     useNowPlayingMovies();
@@ -44,7 +46,12 @@ const Browse = () => {
             </div>
             <Footer />
             {/* Movie Dialog for pop-up trailers */}
-            <MovieDialog />
+            {isDialogOpen && selectedMovie && (
+              <MovieDialog 
+                movie={selectedMovie} 
+                onClose={() => dispatch(setOpen(false))} 
+              />
+            )}
         </div>
         </div>
     )
