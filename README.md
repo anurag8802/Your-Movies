@@ -1,4 +1,9 @@
-# Netflix Clone
+# Your Movies
+
+## 🚀 Live Demo
+Check out the project here: https://extraordinary-ganache-3c2e16.netlify.app/
+
+
 
 A full-stack Netflix clone built with React.js, Node.js, and Express.js. This project replicates core Netflix functionalities including user authentication, movie browsing, search, favorites, and subscription management.
 
