@@ -122,3 +122,12 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Disclaimer
 
 This project is created for learning purposes and is not affiliated with Netflix. All movie data is sourced from public APIs.
+
+.env
+PORT=8000
+MONGODB_URI=mongodb+srv://anurag:12345@cluster0.yofkm1i.mongodb.net/
+JWT_SECRET=your-secret-key
+RAZORPAY_KEY_ID=rzp_test_xLZSpbpPmYuh0a
+RAZORPAY_KEY_SECRET=2qaMZAZHlSDiRHuQ8tI3h64R
+JWT_EXPIRE=7d
+
